@@ -1,28 +1,44 @@
-import os
+import sys
 
-from algorithm import *
+import matplotlib
 
-trainingDir = os.path.join('data', 'training')
-testingDir = os.path.join('data', 'testing')
+# Make sure that we are using Qt5
+matplotlib.use('Qt5Agg')
+
+from mainWindow import *
+
+# Back up the reference to the exceptionhook
+sys._excepthook = sys.excepthook
+
+
+# Exception hook is used to print out the exception
+# This is necessary for Qt 5 applications because Qt uses an event loop which will not trigger a traceback
+def my_exception_hook(exctype, value, traceback):
+    # Print the error and traceback
+    print(exctype, value, traceback)
+
+    # Call the normal Exception hook after
+    sys._excepthook(exctype, value, traceback)
+    sys.exit(1)
+
+
+# Set the exception hook to our wrapping function
+sys.excepthook = my_exception_hook
 
 
 def main():
-    print('ECE438 - Image Processing Project')
-    print('Hand Finger Counter & Detector')
+    # Set application, organization name and version
+    # This is used for the QSettings (when an empty constructor is given)
+    QCoreApplication.setApplicationName(constants.applicationName)
+    QCoreApplication.setOrganizationName(constants.organizationName)
+    QCoreApplication.setApplicationVersion(constants.version)
 
-    print('\nSelect an option:\n'
-          '\t1. Get training results\n'
-          '\t2. Get testing results\n')
+    app = QApplication(sys.argv)
 
-    line = input()
-    option = int(line)
+    form = MainWindow()
+    form.show()
 
-    if option == 1:
-        runAlgorithm(trainingDir)
-    elif option == 2:
-        runAlgorithm(testingDir)
-    else:
-        print('Invalid option entered')
+    sys.exit(app.exec_())
 
 
 if __name__ == '__main__':
