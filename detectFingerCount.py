@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import scipy.ndimage
 import skimage.morphology
 import sklearn.cluster
+import skimage.measure
 from time import sleep
 
 
@@ -76,8 +77,15 @@ def detectFingerCount(image, colorProfile):
     imageMask4 = scipy.ndimage.morphology.binary_fill_holes(imageMask3)
 
     # Finally remove any small objects in the image.
-    # TODO: Would be better to select the object with the LARGEST area since this will likely be the hand
-    imageMask5 = skimage.morphology.remove_small_objects(imageMask4, 5000)
+    # Label the objects of the image mask. Get the area for each of the labels
+    imageMaskLabel = skimage.morphology.label(imageMask4)
+    imageMaskProps = skimage.measure.regionprops(imageMaskLabel)
+
+    # Sort objects based on area descending, first largest object should be the hand
+    sortedAreaIndices = sorted(range(len(imageMaskProps)), key=lambda x: imageMaskProps[x].area, reverse=True)
+
+    # Mask is the object with largest area
+    imageMask5 = (imageMaskLabel == sortedAreaIndices[0] + 1)
 
     # Plot the filtering results
     plt.figure(1)
