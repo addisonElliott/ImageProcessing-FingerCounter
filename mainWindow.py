@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import *
 import constants
 import mainWindow_ui
 from algorithm import *
-from patchesWindow import *
+from profileWindow import *
 
 
 class MainWindow(QMainWindow, mainWindow_ui.Ui_MainWindow):
@@ -14,8 +14,8 @@ class MainWindow(QMainWindow, mainWindow_ui.Ui_MainWindow):
 
     @pyqtSlot()
     def on_setupPatchesButton_clicked(self):
-        self.patchesWindow = PatchesWindow(parent=self)
-        self.patchesWindow.show()
+        self.profileWindow = ProfileWindow(self)
+        self.profileWindow.show()
 
     @pyqtSlot()
     def on_runTrainingButton_clicked(self):

@@ -9,3 +9,6 @@ version = '1.0.0'
 # Directories for training and testing
 trainingDir = os.path.join('data', 'training')
 testingDir = os.path.join('data', 'testing')
+
+# Size of patches
+patchesSize = 25
