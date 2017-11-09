@@ -1,16 +1,29 @@
-import sys
+import os
+
+from algorithm import *
+
+trainingDir = os.path.join('data', 'training')
+testingDir = os.path.join('data', 'testing')
 
 
 def main():
     print('ECE438 - Image Processing Project')
-    print('Classroom Object Detection')
+    print('Hand Finger Counter & Detector')
+
+    print('\nSelect an option:\n'
+          '\t1. Get training results\n'
+          '\t2. Get testing results\n')
+
+    line = input()
+    option = int(line)
+
+    if option == 1:
+        runAlgorithm(trainingDir)
+    elif option == 2:
+        runAlgorithm(testingDir)
+    else:
+        print('Invalid option entered')
 
 
 if __name__ == '__main__':
     main()
-
-    # for name in os.listdir(trainingDir):
-    #     fullPath = os.path.join(trainingDir, name)
-    #
-    #     if not os.path.isfile(fullPath):
-    #         continue
