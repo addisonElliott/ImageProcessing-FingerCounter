@@ -1,4 +1,4 @@
 <profile SchemaVersion="1">
   <image>five-1.jpg</image>
-  <patches/>
+  <patches><patch h="25" w="25" x="184" y="440"/><patch h="25" w="25" x="572" y="353"/><patch h="25" w="25" x="138" y="543"/><patch h="25" w="25" x="159" y="644"/><patch h="25" w="25" x="215" y="638"/><patch h="25" w="25" x="233" y="789"/><patch h="25" w="25" x="465" y="615"/><patch h="25" w="25" x="560" y="615"/><patch h="25" w="25" x="564" y="545"/><patch h="25" w="25" x="359" y="586"/><patch h="25" w="25" x="359" y="704"/><patch h="25" w="25" x="450" y="694"/></patches>
 </profile>

@@ -25,12 +25,12 @@ class Ui_MainWindow(object):
         self.setupPatchesButton = QtWidgets.QPushButton(self.centralwidget)
         self.setupPatchesButton.setObjectName("setupPatchesButton")
         self.verticalLayout.addWidget(self.setupPatchesButton)
-        self.runTestingButton = QtWidgets.QPushButton(self.centralwidget)
-        self.runTestingButton.setObjectName("runTestingButton")
-        self.verticalLayout.addWidget(self.runTestingButton)
         self.runTrainingButton = QtWidgets.QPushButton(self.centralwidget)
         self.runTrainingButton.setObjectName("runTrainingButton")
         self.verticalLayout.addWidget(self.runTrainingButton)
+        self.runTestingButton = QtWidgets.QPushButton(self.centralwidget)
+        self.runTestingButton.setObjectName("runTestingButton")
+        self.verticalLayout.addWidget(self.runTestingButton)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
         self.gridLayout.addLayout(self.verticalLayout, 3, 0, 1, 1)
@@ -44,6 +44,6 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "SIUE Finger Detector"))
         self.setupPatchesButton.setText(_translate("MainWindow", "Setup Patches"))
-        self.runTestingButton.setText(_translate("MainWindow", "Run Testing"))
         self.runTrainingButton.setText(_translate("MainWindow", "Run Training"))
+        self.runTestingButton.setText(_translate("MainWindow", "Run Testing"))
 

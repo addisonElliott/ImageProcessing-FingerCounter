@@ -1,4 +1,4 @@
 <profile SchemaVersion="1">
   <image>five-11.jpg</image>
-  <patches/>
+  <patches><patch h="25" w="25" x="161" y="344"/><patch h="25" w="25" x="355" y="237"/><patch h="25" w="25" x="423" y="204"/><patch h="25" w="25" x="407" y="284"/><patch h="25" w="25" x="403" y="355"/><patch h="25" w="25" x="361" y="588"/><patch h="25" w="25" x="384" y="634"/><patch h="25" w="25" x="396" y="704"/><patch h="25" w="25" x="425" y="758"/><patch h="25" w="25" x="425" y="816"/><patch h="25" w="25" x="318" y="803"/><patch h="25" w="25" x="270" y="675"/><patch h="25" w="25" x="270" y="601"/><patch h="25" w="25" x="303" y="533"/><patch h="25" w="25" x="243" y="533"/><patch h="25" w="25" x="227" y="590"/><patch h="25" w="25" x="212" y="663"/><patch h="25" w="25" x="206" y="731"/><patch h="25" w="25" x="206" y="762"/><patch h="25" w="25" x="303" y="741"/><patch h="25" w="25" x="676" y="648"/><patch h="25" w="25" x="645" y="650"/><patch h="25" w="25" x="601" y="692"/><patch h="25" w="25" x="549" y="698"/><patch h="25" w="25" x="456" y="694"/><patch h="25" w="25" x="184" y="442"/><patch h="25" w="25" x="554" y="301"/></patches>
 </profile>

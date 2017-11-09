@@ -1,7 +1,3 @@
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-
-import constants
 import mainWindow_ui
 from algorithm import *
 from profileWindow import *
@@ -20,7 +16,9 @@ class MainWindow(QMainWindow, mainWindow_ui.Ui_MainWindow):
     @pyqtSlot()
     def on_runTrainingButton_clicked(self):
         runAlgorithm(constants.trainingDir)
+        print('Finished!')
 
     @pyqtSlot()
     def on_runTestingButton_clicked(self):
         runAlgorithm(constants.testingDir)
+        print('Finished!')
