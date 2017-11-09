@@ -106,6 +106,6 @@ class ProfileWidget(FigureCanvas):
         patches = list()
 
         for patch in self.patches:
-            patches.append((patch.get_x(), patch.get_y(), patch.get_width(), patch.get_height()))
+            patches.append((int(patch.get_x()), int(patch.get_y()), int(patch.get_width()), int(patch.get_height())))
 
         return patches

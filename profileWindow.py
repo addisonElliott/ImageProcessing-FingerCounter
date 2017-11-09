@@ -94,6 +94,6 @@ class ProfileWindow(QMainWindow, profileWindow_ui.Ui_ProfileWindow):
 
         patches = self.profileWidget.getPatches()
         for patch in patches:
-            etree.SubElement(patchesXML, 'patch', x=patch[0], y=patch[1], w=patch[2], h=patch[3])
+            etree.SubElement(patchesXML, 'patch', x=str(patch[0]), y=str(patch[1]), w=str(patch[2]), h=str(patch[3]))
 
         self.config.write(patchPath, pretty_print=True)

@@ -1,4 +1,4 @@
 <profile SchemaVersion="1">
   <image>five-2.jpg</image>
-  <patches/>
+  <patches><patch h="25" w="25" x="4" y="998"/></patches>
 </profile>
