@@ -1,4 +1,0 @@
-<profile SchemaVersion="1">
-  <image>five-12.jpg</image>
-  <patches><patch h="25" w="25" x="90" y="353"/><patch h="25" w="25" x="260" y="249"/><patch h="25" w="25" x="341" y="218"/><patch h="25" w="25" x="469" y="284"/><patch h="25" w="25" x="454" y="357"/><patch h="25" w="25" x="425" y="433"/><patch h="25" w="25" x="318" y="404"/><patch h="25" w="25" x="332" y="301"/><patch h="25" w="25" x="256" y="301"/><patch h="25" w="25" x="254" y="396"/><patch h="25" w="25" x="107" y="415"/><patch h="25" w="25" x="188" y="597"/><patch h="25" w="25" x="328" y="597"/><patch h="25" w="25" x="411" y="632"/><patch h="25" w="25" x="649" y="611"/><patch h="25" w="25" x="543" y="646"/><patch h="25" w="25" x="330" y="361"/><patch h="25" w="25" x="303" y="704"/><patch h="25" w="25" x="339" y="774"/><patch h="25" w="25" x="196" y="729"/></patches>
-</profile>

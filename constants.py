@@ -15,4 +15,4 @@ testingDir = os.path.join('data', 'testing')
 patchesSize = 25
 
 # Percentage of tolerance for each patch to allow colors
-patchTolerance = np.array([0.2, 0.2, 0.5])
+patchTolerance = np.array([0.2, 0.5, 0.8])

@@ -6,10 +6,11 @@ import skimage.exposure
 import skimage.filters
 import skimage.color
 import constants
+from detectFingerCount import grayColorCorrection
 
 import os
 
-def getColorProfile(path):
+def getColorProfile(path, type='minmax'):
     profilePath = os.path.join(path, 'profile.xml')
 
     # Load data from XML
@@ -38,6 +39,9 @@ def getColorProfile(path):
     # Due to rounding errors, rescale intensity again so that the range is [0.0, 1.0]
     image = skimage.exposure.rescale_intensity(image)
 
+    # # Apply gray world color correction algorithm
+    # image = grayColorCorrection(image)
+
     # Apply adaptive histogram equalization
     image = skimage.exposure.equalize_adapthist(image)
 
@@ -52,12 +56,31 @@ def getColorProfile(path):
         patchImage = imageHSV[x1:x2, y1:y2, :]
 
         # Get min/max values from the patch in each band (H, S, V)
-        min = patchImage.min(axis=(0, 1))
-        max = patchImage.max(axis=(0, 1))
+        if type == 'minmax':
+            min = patchImage.min(axis=(0, 1))
+            max = patchImage.max(axis=(0, 1))
+        elif type == 'median':
+            min = np.median(patchImage, axis=(0, 1))
+            max = min
+        elif type == 'average':
+            min = np.average(patchImage, axis=(0, 1))
+            max = min
+        else:
+            print('Invalid type given')
+            return profile
 
         min = min * (1 - constants.patchTolerance)
         max = max * (1 + constants.patchTolerance)
 
         profile.append(np.vstack((min, max)))
+
+        # # Show the patch to determine if it looks like skin
+        # plt.figure(1)
+        # plt.clf()
+        # plt.imshow(image[x1:x2, y1:y2, :])
+        # plt.draw()
+        # plt.show()
+        # plt.waitforbuttonpress()
+        # print('Min: %s Max %s' % (min, max))
 
     return profile
