@@ -1,5 +1,3 @@
 <profile SchemaVersion="1">
-  <image>three-4.jpg</image>
-  <patches>
-    <patch h="25" w="25" x="353" y="586"/><patch h="25" w="25" x="353" y="741"/><patch h="25" w="25" x="204" y="433"/><patch h="25" w="25" x="243" y="636"/><patch h="25" w="25" x="322" y="427"/><patch h="25" w="25" x="99" y="518"/></patches>
+  <ycbcr minY="0" maxY="255" minCb="77" maxCb="127" minCr="145" maxCr="180" />
 </profile>

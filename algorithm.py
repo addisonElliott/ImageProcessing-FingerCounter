@@ -14,7 +14,7 @@ def runAlgorithm(dir):
     # if not os.path.isdir(fullPath):
     #     continue
 
-    colorProfile = getColorProfile(fullPath, type='median')
+    colorProfile = getColorProfile(fullPath, type='totalminmax')
 
     for name2 in os.listdir(fullPath):
         fullPath2 = os.path.join(fullPath, name2)
