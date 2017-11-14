@@ -9,6 +9,7 @@ import skimage.filters
 import skimage.measure
 import skimage.morphology
 import sklearn.cluster
+import matplotlib.pyplot as plt
 
 import constants
 
@@ -46,7 +47,7 @@ def detectFingerCount(image, colorProfile):
     imageMask = thresholdYCbcr(imageYCbCr, colorProfile[0, :], colorProfile[1, :])
 
     # # Testing image mask
-    # imageMask = thresholdYCbcr(imageYCbCr, np.array([120, 77, 140]), np.array([255, 127, 180]))
+    # imageMask = thresholdYCbcr(imageYCbCr, np.array([100, 77, 140]), np.array([255, 127, 180]))
 
     # # Show YCbCr image and final mask
     # plt.figure(1)
