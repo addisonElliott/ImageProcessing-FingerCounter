@@ -8,6 +8,8 @@ import skimage.filters
 import skimage.measure
 import skimage.morphology
 import sklearn.cluster
+import math
+import constants
 
 
 def thresholdYCbcr(ycbcrImage, low, high):
@@ -137,29 +139,37 @@ def detectFingerCount(image, colorProfile):
     imageMaskProps = skimage.measure.regionprops(imageMask4.astype(np.uint8))
     imageMaskProps = imageMaskProps[0]
 
-    largestDimension = max(imageMaskProps.bbox[2] - imageMaskProps.bbox[0],
-                           imageMaskProps.bbox[3] - imageMaskProps.bbox[1])
-    dimensionThreshold = 0.2 * largestDimension
+    # plt.figure(1)
+    # plt.clf()
+    # plt.imshow(imageMask4, cmap="gray")
+    # plt.plot(contours[:, 0, 0], contours[:, 0, 1], '-g', linewidth=2)
 
-    plt.figure(1)
-    plt.clf()
-    plt.imshow(imageMask4, cmap="gray")
-    plt.plot(contours[:, 0, 0], contours[:, 0, 1], '-g', linewidth=2)
-
+    fingerWebs = 0
     for i in range(defects.shape[0]):
-        # (S)tart index, (e)nd index, (f)arthest point, (d)istance
+        # (S)tart index, (e)nd index, (f)arthest point, (d)istance squared
         s, e, f, d = defects[i, 0]
-        d = np.math.sqrt(d)
 
-        if d > dimensionThreshold:
-            start = contours[s][0]
-            end = contours[e][0]
-            far = contours[f][0]
-            plt.plot(far[0], far[1], 'b^')
-            print(d)
+        # For some reason, the contours are in a list of length 1. Remove list wrapper by getting first element
+        start = contours[s][0]
+        end = contours[e][0]
+        far = contours[f][0]
 
-    plt.draw()
-    plt.show()
-    plt.waitforbuttonpress()
+        # Calculate each side of the triangle and use law of cosines to compute angle of defects
+        a = np.linalg.norm(start - end)
+        b = np.linalg.norm(start - far)
+        c = np.linalg.norm(end - far)
+        angle = math.acos((b**2 + c**2 - a**2) / (2 * b * c))
 
-    return 1
+        if angle < math.radians(constants.fingerAngleThreshold):
+            # print('Angle: %f Dist: %f' % (angle, d))
+            # plt.plot(far[0], far[1], 'b^')
+
+            # Increment finger webs count which keeps track of how many finger webs were found
+            fingerWebs = fingerWebs + 1
+
+    # plt.draw()
+    # plt.show()
+    # plt.waitforbuttonpress()
+
+    # Number of fingers up is webs plus one
+    return fingerWebs + 1

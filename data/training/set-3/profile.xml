@@ -1,4 +1,3 @@
 <profile SchemaVersion="1">
-  <image>five-1.jpg</image>
-  <patches/>
+  <ycbcr minY="0" maxY="255" minCb="77" maxCb="127" minCr="145" maxCr="180" />
 </profile>

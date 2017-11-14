@@ -11,9 +11,6 @@ version = '1.0.0'
 trainingDir = os.path.join('data', 'training')
 testingDir = os.path.join('data', 'testing')
 
-# Size of patches
-patchesSize = 25
-
-# Percentage of tolerance for each patch to allow colors
-# patchTolerance = np.array([0.2, 0.5, 0.8])
-patchTolerance = np.array([0.01, 0.01, 0.03])
+# Angle in degrees that each convexity defect must be less than to be considered
+# a valid finger webbing
+fingerAngleThreshold = 95
