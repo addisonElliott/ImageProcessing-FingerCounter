@@ -1,13 +1,8 @@
-from lxml import etree
-import numpy as np
-import scipy.misc
-import matplotlib.pyplot as plt
-import skimage.exposure
-import skimage.filters
-import skimage.color
-import constants
-
 import os
+
+import numpy as np
+from lxml import etree
+
 
 def getColorProfile(path, type='minmax'):
     profilePath = os.path.join(path, 'profile.xml')

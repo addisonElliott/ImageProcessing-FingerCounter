@@ -1,6 +1,5 @@
 # This file contains all the constants that will not be regularly changed upon runtime
 import os
-import numpy as np
 
 # Name of the application, organization that created the application and current version of the application
 applicationName = 'Finger Counter'

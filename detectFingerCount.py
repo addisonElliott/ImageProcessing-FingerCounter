@@ -1,5 +1,6 @@
+import math
+
 import cv2
-import matplotlib.pyplot as plt
 import numpy as np
 import scipy.ndimage
 import skimage.color
@@ -8,7 +9,7 @@ import skimage.filters
 import skimage.measure
 import skimage.morphology
 import sklearn.cluster
-import math
+
 import constants
 
 
@@ -161,7 +162,7 @@ def detectFingerCount(image, colorProfile):
         a = np.linalg.norm(start - end)
         b = np.linalg.norm(start - far)
         c = np.linalg.norm(end - far)
-        angle = math.acos((b**2 + c**2 - a**2) / (2 * b * c))
+        angle = math.acos((b ** 2 + c ** 2 - a ** 2) / (2 * b * c))
 
         if angle < math.radians(constants.fingerAngleThreshold):
             # print('Angle: %f Dist: %f' % (angle, d))

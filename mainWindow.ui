@@ -35,13 +35,6 @@
       <item row="3" column="0">
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QPushButton" name="setupPatchesButton">
-          <property name="text">
-           <string>Setup Patches</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="runTrainingButton">
           <property name="text">
            <string>Run Training</string>

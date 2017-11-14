@@ -1,7 +1,7 @@
-import os
 import scipy.misc
-from detectFingerCount import *
+
 from colorProfile import *
+from detectFingerCount import *
 
 
 def runAlgorithm(dir):

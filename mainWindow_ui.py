@@ -22,9 +22,6 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName("gridLayout")
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
-        self.setupPatchesButton = QtWidgets.QPushButton(self.centralwidget)
-        self.setupPatchesButton.setObjectName("setupPatchesButton")
-        self.verticalLayout.addWidget(self.setupPatchesButton)
         self.runTrainingButton = QtWidgets.QPushButton(self.centralwidget)
         self.runTrainingButton.setObjectName("runTrainingButton")
         self.verticalLayout.addWidget(self.runTrainingButton)
@@ -43,7 +40,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "SIUE Finger Detector"))
-        self.setupPatchesButton.setText(_translate("MainWindow", "Setup Patches"))
         self.runTrainingButton.setText(_translate("MainWindow", "Run Training"))
         self.runTestingButton.setText(_translate("MainWindow", "Run Testing"))
 
