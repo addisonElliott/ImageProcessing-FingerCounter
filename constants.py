@@ -12,4 +12,7 @@ testingDir = os.path.join('data', 'testing')
 
 # Angle in degrees that each convexity defect must be less than to be considered
 # a valid finger webbing
-fingerAngleThreshold = 95
+fingerAngleThreshold = 110
+
+# Threshold for determining fingers
+fingerDistThreshold = 0.20
