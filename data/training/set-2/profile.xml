@@ -1,19 +1,5 @@
 <profile SchemaVersion="1">
   <image>three-4.jpg</image>
   <patches>
-    <patch h="25" w="25" x="95" y="518"/>
-    <patch h="25" w="25" x="165" y="398"/>
-    <patch h="25" w="25" x="260" y="349"/>
-    <patch h="25" w="25" x="221" y="448"/>
-    <patch h="25" w="25" x="254" y="477"/>
-    <patch h="25" w="25" x="332" y="702"/>
-    <patch h="25" w="25" x="372" y="754"/>
-    <patch h="25" w="25" x="409" y="799"/>
-    <patch h="25" w="25" x="438" y="698"/>
-    <patch h="25" w="25" x="243" y="632"/>
-    <patch h="25" w="25" x="372" y="578"/>
-    <patch h="25" w="25" x="320" y="578"/>
-    <patch h="25" w="25" x="328" y="452"/>
-    <patch h="25" w="25" x="308" y="415"/>
-  </patches>
+    <patch h="25" w="25" x="353" y="586"/><patch h="25" w="25" x="353" y="741"/><patch h="25" w="25" x="204" y="433"/><patch h="25" w="25" x="243" y="636"/><patch h="25" w="25" x="322" y="427"/><patch h="25" w="25" x="99" y="518"/></patches>
 </profile>

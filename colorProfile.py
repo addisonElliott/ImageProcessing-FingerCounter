@@ -45,15 +45,18 @@ def getColorProfile(path, type='minmax'):
     # Apply adaptive histogram equalization
     image = skimage.exposure.equalize_adapthist(image)
 
-    # Convert to HSV
-    imageHSV = skimage.color.rgb2hsv(image)
+    # # Convert to HSV
+    # imageHSV = skimage.color.rgb2hsv(image)
+
+    # Convert to YCbCr
+    imageYCbCr = skimage.color.rgb2ycbcr(image)
 
     profile = list()
     for patch in patches:
         x1, y1 = patch[1], patch[0]
         x2, y2 = x1 + patch[3], y1 + patch[2]
 
-        patchImage = imageHSV[x1:x2, y1:y2, :]
+        patchImage = imageYCbCr[x1:x2, y1:y2, :]
 
         # Get min/max values from the patch in each band (H, S, V)
         if type == 'minmax':

@@ -14,7 +14,7 @@ def runAlgorithm(dir):
     # if not os.path.isdir(fullPath):
     #     continue
 
-    colorProfile = getColorProfile(fullPath, type='average')
+    colorProfile = getColorProfile(fullPath, type='median')
 
     for name2 in os.listdir(fullPath):
         fullPath2 = os.path.join(fullPath, name2)
@@ -40,6 +40,7 @@ def runAlgorithm(dir):
             print('Found filename that does not start with a valid number: %s' % (name2))
             continue
 
+        print('yay %s' % fullPath2)
         image = scipy.misc.imread(fullPath2)
         predictedFingerCount = detectFingerCount(image, colorProfile)
 

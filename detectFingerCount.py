@@ -2,6 +2,7 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.ndimage
+import skimage.color
 import skimage.exposure
 import skimage.filters
 import skimage.measure
@@ -9,16 +10,16 @@ import skimage.morphology
 import sklearn.cluster
 
 
-def thresholdHSV(hsvImage, low, high):
-    hueImage = hsvImage[:, :, 0]
-    satImage = hsvImage[:, :, 1]
-    valImage = hsvImage[:, :, 2]
+def thresholdYCbcr(ycbcrImage, low, high):
+    yImage = ycbcrImage[:, :, 0]
+    cbImage = ycbcrImage[:, :, 1]
+    crImage = ycbcrImage[:, :, 2]
 
-    hueMask = (hueImage >= low[0]) & (hueImage <= high[0])
-    satMask = (satImage >= low[1]) & (satImage <= high[1])
-    valMask = (valImage >= low[2]) & (valImage <= high[2])
+    yMask = (yImage >= low[0]) & (yImage <= high[0])
+    cbMask = (cbImage >= low[1]) & (cbImage <= high[1])
+    crMask = (crImage >= low[2]) & (crImage <= high[2])
 
-    return hueMask & satMask & valMask
+    return yMask & cbMask & crMask
 
 
 def kmeans(image, k, isVector=False):
@@ -30,70 +31,80 @@ def kmeans(image, k, isVector=False):
 
     return centroids, labels.reshape(image.shape[:-1] if isVector else image.shape), inertia
 
-def grayColorCorrection(image):
-    averageValue = np.average(image, axis=(0, 1))
-    totalAverage = np.sum(averageValue) / 3
-
-    correctedImage = image * (totalAverage / averageValue)
-    return correctedImage
-
 
 def detectFingerCount(image, colorProfile):
     # Convert to float
     image = skimage.exposure.rescale_intensity(image.astype(float))
 
-    # Smooth image to remove noise
-    image = skimage.filters.gaussian(image, sigma=3, multichannel=True)
-
     # Due to rounding errors, rescale intensity again so that the range is [0.0, 1.0]
     image = skimage.exposure.rescale_intensity(image)
 
-    # # Apply gray world color correction algorithm
-    # This method did NOT work as well as CLAHE contrast equalization
-    # image = grayColorCorrection(image)
-
-    # Apply adaptive histogram equalization
-    image = skimage.exposure.equalize_adapthist(image)
-
-    # Convert to HSV
-    imageHSV = skimage.color.rgb2hsv(image)
+    # Convert to YCbCr
+    imageYCbCr = skimage.color.rgb2ycbcr(image)
 
     # Create an image mask that is all zeros
-    imageMask = np.zeros(imageHSV.shape[:-1], dtype=bool)
+    imageMask = np.zeros(imageYCbCr.shape[:-1], dtype=bool)
+
+    # imageMask = thresholdHSV(imageYCbCr, np.array([70, 50, 140]), np.array([183, 255, 180]))
+    imageMask = thresholdYCbcr(imageYCbCr, np.array([0, 77, 145]), np.array([255, 255, 180]))
 
     # plt.figure(1)
     # plt.figure(2)
-
-    # Apply HSV threshold for each patch from color profile and OR it with the imageMask
-    for patch in colorProfile:
-        mask = thresholdHSV(imageHSV, patch[0, :], patch[1, :])
-        imageMask = imageMask | mask
-
-        # plt.figure()
-        # plt.imshow(mask, cmap="gray")
-        # plt.draw()
-
-    # # Show HSV image and final mask
-    # plt.figure(1)
-    # plt.clf()
-    # plt.title('Original Image')
-    # plt.imshow(image)
-    # plt.draw()
     #
-    # plt.figure(2)
-    # plt.clf()
-    # plt.title('Original HSV Image')
-    # plt.imshow(imageHSV)
-    # plt.draw()
+    # # Apply HSV threshold for each patch from color profile and OR it with the imageMask
+    # for patch in colorProfile:
+    #     mask = thresholdHSV(imageYCbCr, patch[0, :], patch[1, :])
+    #     imageMask = imageMask | mask
     #
-    # plt.figure(3)
-    # plt.clf()
-    # plt.title('Mask Image')
-    # plt.imshow(imageMask, cmap="gray")
-    # plt.draw()
+    #     print('Min/Max: %s %s' % (patch[0, :], patch[1, :]))
     #
-    # plt.show()
-    # plt.waitforbuttonpress()
+    #     # plt.figure()
+    #     # plt.imshow(mask, cmap="gray")
+    #     # plt.draw()
+
+    # Show HSV image and final mask
+    plt.figure(1)
+    plt.clf()
+    plt.title('Original Image')
+    plt.imshow(image)
+    plt.draw()
+
+    plt.figure(2)
+    plt.clf()
+    plt.title('Original YCbCr Image')
+    plt.imshow(imageYCbCr)
+    plt.draw()
+
+    plt.figure(3)
+    plt.clf()
+    plt.title('Y Image')
+    plt.imshow(imageYCbCr[:, :, 0], cmap="gray")
+    plt.draw()
+
+    plt.figure(4)
+    plt.clf()
+    plt.title('Cb Image')
+    plt.imshow(imageYCbCr[:, :, 1], cmap="gray")
+    # print(imageYCbCr[:, :, 1].min())
+    # print(imageYCbCr[:, :, 1].max())
+    plt.draw()
+
+    plt.figure(5)
+    plt.clf()
+    plt.title('Cr Image')
+    plt.imshow(imageYCbCr[:, :, 2], cmap="gray")
+    print(imageYCbCr[:, :, 2].min())
+    print(imageYCbCr[:, :, 2].max())
+    plt.draw()
+
+    plt.figure(6)
+    plt.clf()
+    plt.title('Mask Image')
+    plt.imshow(imageMask, cmap="gray")
+    plt.draw()
+
+    plt.show()
+    plt.waitforbuttonpress()
 
     # Then apply a binary opening to disconnect any small pieces from the hand.
     # This will make it a separate object that will be handled later.
@@ -162,25 +173,25 @@ def detectFingerCount(image, colorProfile):
                            imageMaskProps.bbox[3] - imageMaskProps.bbox[1])
     dimensionThreshold = 0.2 * largestDimension
 
-    plt.figure(1)
-    plt.clf()
-    plt.imshow(imageMask5, cmap="gray")
-    plt.plot(contours[:, 0, 0], contours[:, 0, 1], '-g', linewidth=2)
-
-    for i in range(defects.shape[0]):
-        # (S)tart index, (e)nd index, (f)arthest point, (d)istance
-        s, e, f, d = defects[i, 0]
-        d = np.math.sqrt(d)
-
-        if d > dimensionThreshold:
-            start = contours[s][0]
-            end = contours[e][0]
-            far = contours[f][0]
-            plt.plot(far[0], far[1], 'b^')
-            print(d)
-
-    plt.draw()
-    plt.show()
-    plt.waitforbuttonpress()
+    # plt.figure(1)
+    # plt.clf()
+    # plt.imshow(imageMask5, cmap="gray")
+    # plt.plot(contours[:, 0, 0], contours[:, 0, 1], '-g', linewidth=2)
+    #
+    # for i in range(defects.shape[0]):
+    #     # (S)tart index, (e)nd index, (f)arthest point, (d)istance
+    #     s, e, f, d = defects[i, 0]
+    #     d = np.math.sqrt(d)
+    #
+    #     if d > dimensionThreshold:
+    #         start = contours[s][0]
+    #         end = contours[e][0]
+    #         far = contours[f][0]
+    #         plt.plot(far[0], far[1], 'b^')
+    #         print(d)
+    #
+    # plt.draw()
+    # plt.show()
+    # plt.waitforbuttonpress()
 
     return 1
