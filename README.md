@@ -1,12 +1,8 @@
 # ECE438 - Image Processing Final Project
 
-This project utilizes image processing techniques to identify an object given an image. The four objects that can be identified are:
-1. Keyboards
-2. Mouse
-3. Cell phones
-4. Balls
+This project utilizes image processing techniques to identify the number of fingers a person is holding up for a given image. The image should contain one hand with 1 to 5 fingers being held up. If the person does not hold up any fingers, this will be incorrectly identified as 1 finger being held up. In the future, this algorithm could be extended to distinguish between 0 and 1 fingers.
 
-The images should only contain one of the four objects and the object should be completely within the image.
+To run the project, run *main.py* to start the GUI. Click to run algorithm on training or testing images.
 
 ## License
 
