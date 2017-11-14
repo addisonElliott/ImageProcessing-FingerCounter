@@ -5,6 +5,10 @@ from colorProfile import *
 
 
 def runAlgorithm(dir):
+    numCorrect = 0
+    numWrong = 0
+    wrongByDistance = list()
+
     # Loop through each file in directory
     for name in os.listdir(dir):
         fullPath = os.path.join(dir, name)
@@ -39,9 +43,18 @@ def runAlgorithm(dir):
                 print('Found filename that does not start with a valid number: %s' % (name2))
                 continue
 
-            print('yay %s' % fullPath2)
             image = scipy.misc.imread(fullPath2)
             predictedFingerCount = detectFingerCount(image, colorProfile)
 
-            # TODO Check if we got it right. Also, store statistics and analyze how we did
             print('Should be: %i    Got: %i' % (actualFingerCount, predictedFingerCount))
+            if predictedFingerCount == actualFingerCount:
+                numCorrect = numCorrect + 1
+            else:
+                numWrong = numWrong + 1
+
+                wrongByDistance.append(np.abs(predictedFingerCount - actualFingerCount))
+
+    accuracy = numCorrect / (numCorrect + numWrong)
+    averageWrongBy = sum(wrongByDistance) / len(wrongByDistance)
+    print('Algorithm Accuracy: %f%%' % (accuracy * 100))
+    print('Average Algorithm Wrong By: %f' % (averageWrongBy))

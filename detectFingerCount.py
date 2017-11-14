@@ -44,6 +44,9 @@ def detectFingerCount(image, colorProfile):
     # Apply threshold based on color profile
     imageMask = thresholdYCbcr(imageYCbCr, colorProfile[0, :], colorProfile[1, :])
 
+    # # Testing image mask
+    # imageMask = thresholdYCbcr(imageYCbCr, np.array([120, 77, 140]), np.array([255, 127, 180]))
+
     # # Show YCbCr image and final mask
     # plt.figure(1)
     # plt.clf()
@@ -172,4 +175,4 @@ def detectFingerCount(image, colorProfile):
     # plt.waitforbuttonpress()
 
     # Number of fingers up is webs plus one
-    return fingerWebs + 1
+    return min(fingerWebs + 1, 5)
