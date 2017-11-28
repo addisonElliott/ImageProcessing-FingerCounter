@@ -147,11 +147,10 @@ def detectFingerCount(image, colorProfile):
     area = imageMaskProps.area
     areaThreshold = area * constants.fingerDistThreshold
 
-    # plt.figure(1)
-    # plt.clf()
-    # plt.imshow(imageMask4, cmap="gray")
-    # plt.plot(contours[:, 0, 0], contours[:, 0, 1], '-g', linewidth=2)
-    # plt.plot(centroid[0], centroid[1], 'ro')
+    plt.figure(1)
+    plt.clf()
+    plt.imshow(imageMask4, cmap="gray")
+    plt.plot(contours[:, 0, 0], contours[:, 0, 1], '-g', linewidth=2)
 
     fingerWebs = 0
     for i in range(defects.shape[0]):
@@ -170,15 +169,15 @@ def detectFingerCount(image, colorProfile):
         angle = math.acos((b ** 2 + c ** 2 - a ** 2) / (2 * b * c))
 
         if angle < math.radians(constants.fingerAngleThreshold) and d >= areaThreshold:
-            # print('Angle: %f Dist: %f Dist2: %f' % (angle, d, area))
-            # plt.plot(far[0], far[1], 'b^')
+            print('Angle: %f Dist: %f Dist2: %f' % (angle, d, area))
+            plt.plot(far[0], far[1], 'b^')
 
             # Increment finger webs count which keeps track of how many finger webs were found
             fingerWebs = fingerWebs + 1
 
-    # plt.draw()
-    # plt.show()
-    # plt.waitforbuttonpress()
+    plt.draw()
+    plt.show()
+    plt.waitforbuttonpress()
 
     # Number of fingers up is webs plus one
     return min(fingerWebs + 1, 5)
